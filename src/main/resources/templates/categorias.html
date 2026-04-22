@@ -1,0 +1,15 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h1>Categorías</h1>
+<form action="/categorias" method="post">
+<input type="text" name="nombre"/>
+<button>Guardar</button>
+</form>
+<ul>
+<li th:each="c : ${categorias}" th:text="${c.nombre}"></li>
+</ul>
+<a href="/productos">Productos</a>
+</body>
+</html>
