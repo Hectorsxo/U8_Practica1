@@ -1,0 +1,6 @@
+com.ejemplo.productos
+com.ejemplo.productos.controller
+com.ejemplo.productos.model
+com.ejemplo.productos.repository
+com.ejemplo.productos.repository.impl
+com.ejemplo.productos.service
