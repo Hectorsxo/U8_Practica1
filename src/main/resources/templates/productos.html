@@ -15,10 +15,9 @@
 <button>Guardar</button>
 </form>
 <ul>
-<li th:each="p : ${productos}">
-<span th:text="${p.nombre}"></span> -
-<span th:text="${p.categoria.nombre}"></span>
-</li>
+    <li th:each="p : ${productos}"
+        th:text="${p.nombre} + ' - ' + ${p.categoria.nombre} + ' - ' + ${p.precio} + '€'">
+    </li>
 </ul>
 <a href="/categorias">Categorías</a>
 </body>
