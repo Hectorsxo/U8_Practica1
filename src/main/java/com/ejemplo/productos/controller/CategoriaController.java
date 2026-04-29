@@ -28,7 +28,7 @@ public class CategoriaController {
      *
      * @param service servicio de categorías
      */
-    public CategoriaController(CategoriaServiceImpl service) {
+    public CategoriaController(CategoriaServiceImpl service)     {
         this.service = service;
     }
 
