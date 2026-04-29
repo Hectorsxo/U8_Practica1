@@ -1,5 +1,9 @@
 package com.ejemplo.productos.model;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
 /**
  * Clase que representa una categoría de productos.
  *
@@ -9,17 +13,24 @@ package com.ejemplo.productos.model;
  * @author Héctor Crespo
  * @version 1.0
  */
+@Entity
+@Table(name = "categorias")
 public class Categoria {
 
     /**
      * Identificador único de la categoría.
      */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
      * Nombre de la categoría.
      */
+    @Column(name = "nombre_categoria", nullable = false, length = 100)
     private String nombre;
+
+    private List<Producto> productos;
 
     /**
      * Constructor vacío necesario para la creación de objetos.
