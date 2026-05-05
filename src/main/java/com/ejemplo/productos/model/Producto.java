@@ -43,7 +43,8 @@ public class Producto {
     /**
      * Categoría a la que pertenece el producto.
      */
-    //CREAR RELACIÓN
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
     @Transient //No detecta el campo como columna

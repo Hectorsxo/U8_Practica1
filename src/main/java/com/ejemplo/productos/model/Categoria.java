@@ -30,11 +30,13 @@ public class Categoria {
     @Column(name = "nombre_categoria", nullable = false, length = 100)
     private String nombre;
 
+    @OneToMany(mappedBy = "categoria")
     private List<Producto> productos;
 
     /**
      * Constructor vacío necesario para la creación de objetos.
      */
+
     public Categoria() {}
 
     /**
