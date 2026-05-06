@@ -71,4 +71,11 @@ public class ProductoController {
         productoService.guardar(producto);
         return "redirect:/productos";
     }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable Long id){
+        productoService.eliminar(id);
+        return "redirect:/productos";
+    }
+
 }

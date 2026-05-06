@@ -81,4 +81,8 @@ public class ProductoServiceImpl {
         producto.setCategoria(categoria.get());
         repository.save(producto);
     }
+
+    public void eliminar(Long id) {
+        repository.deleteById(id);
+    }
 }

@@ -1,3 +1,4 @@
+/* RESET */
 * {
     margin: 0;
     padding: 0;
@@ -5,6 +6,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/* BODY */
 body {
     background-color: #f4f6f8;
     color: #333;
@@ -13,13 +15,14 @@ body {
     margin: auto;
 }
 
-
+/* TITULO */
 h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #2c3e50;
 }
 
+/* FORMULARIO */
 form {
     background: #ffffff;
     padding: 20px;
@@ -31,6 +34,7 @@ form {
     flex-wrap: wrap;
 }
 
+/* INPUTS */
 input, select {
     padding: 10px;
     border: 1px solid #ccc;
@@ -39,6 +43,7 @@ input, select {
     min-width: 150px;
 }
 
+/* BOTON */
 button {
     padding: 10px 15px;
     background-color: #3498db;
@@ -53,6 +58,7 @@ button:hover {
     background-color: #2980b9;
 }
 
+/* LISTA */
 ul {
     list-style: none;
     margin-top: 15px;
@@ -66,6 +72,7 @@ li {
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
+/* LINKS GENERALES */
 a {
     display: inline-block;
     margin-top: 15px;
@@ -76,4 +83,63 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+/* ========================= */
+/* TABLA */
+/* ========================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* ENCABEZADO */
+thead {
+    background-color: #3498db;
+    color: white;
+}
+
+th {
+    text-align: left;
+    padding: 12px;
+    font-weight: bold;
+}
+
+/* CELDAS */
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle; /* 🔥 clave para alinear todo */
+}
+
+/* HOVER FILAS */
+tbody tr:hover {
+    background-color: #f2f9ff;
+}
+
+/* QUITAR BORDE FINAL */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* BOTON ELIMINAR */
+td a {
+    display: inline-block;
+    padding: 6px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1;
+}
+
+td a:hover {
+    background-color: #c0392b;
 }
