@@ -15,19 +15,7 @@ import java.util.List;
  */
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
-    /**
-     * Obtiene todos los productos disponibles.
-     *
-     * @return lista de productos
-     */
-    /*List<Producto> findAll();
-
-    /**
-     * Guarda un producto en el sistema.
-     *
-     * @param producto producto a guardar
-     */
-    /*void save(Producto producto); */
-
+    List<Producto> findByPrecioLessThan(double precio);
+    List<Producto> findByPrecioGreaterThan(double precio);
 
 }

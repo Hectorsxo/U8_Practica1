@@ -38,5 +38,50 @@
     </tbody>
 </table>
 <a href="/categorias">Categorías</a>
+<!-- FORMULARIOS PARA LAS QUERIES -->
+<span>Bloque 1 </span>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarProductosPrecioMenorQue', filtro1='100',  filtro2='-')}">
+    Ejercicio 1. Listado de productos con precio menor a 100€
+</a><br>
+<a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarProductosPrecioMayorQue', filtro1=500, filtro2='')}">Ejercicio 2. Productos con precio mayor a 500€.</a>
+<br>
+<a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarProducto', filtro1='ROUTER WIFI 6', filtro2='')}">Ejercicio 3. Buscar producto.</a>
+<br>
+
+<span>Bloque 2 </span>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarProductosContienePortatil', filtro1='PORTÁTIL', filtro2='')}">Ejercicio 4. Productos que contengan 'PORTÁTIL'</a>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarProductosEmpiezaDisco', filtro1='DISCO), filtro2=''}">Ejercicio 5. Productos que empiecen por 'DISCO'</a>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarProducto', filtro1='GB')}">Ejercicio 6. Productos que terminen en 'GB'</a>
+<br>
+<span>Bloque 3 </span>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarProductosComponentes', filtro='COMPONENTES', filtro2='')}">Ejercicio 7. Productos de COMPONENTES</a>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarPerifericosMenor100', filtro1='PERIFÉRICOS', filtro2='100')}">Ejercicio 8. PERIFÉRICOS con precio menor a 100€</a>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarAlmacenamientoDisco', filtro1='ALMACENAMIENTO', filtro2='DISCO')}">Ejercicio 9. ALMACENAMIENTO que contenga 'DISCO'</a>
+<br>
+<span>Bloque 4</span>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarRedesMenor100', filtro='REDES',filtro2='100')}">Ejercicio 10. REDES con precio menor a 100€</a>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='buscarSSDOPrecioMenor30', filtro1='SSD', filtro2='30')}">Ejercicio 11. Nombre contiene 'SSD' o precio menor a 30€</a>
+<br>
+<span>Bloque 5</span>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='productosOrdenadosPrecioAsc', filtro1='', filtro2='30')}">Ejercicio 12. Productos ordenados por precio ascendente</a>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='portatilesOrdenadosPrecioDesc', filtro1='PORTÁTILES', filtro2='30')}">Ejercicio 13. PORTÁTILES ordenados por precio descendente</a>
+<br>
+<span>Bloque 6</span>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='productosEntre50y200', filtro1='50', filtro2='100')}">Ejercicio 14. Productos entre 50€ y 200€</a>
+<br><a th:href="@{/productos/ejecutar/{parametro}/{filtro1}/{filtro2}(parametro='componentesMayor100', filtro1='COMPONENTES', filtro2='100')}">Ejercicio 15. COMPONENTES con precio mayor a 100€</a>
+<br>
+<h1>Resultado</h1>
+<table class="table">
+    <thead>
+    <tr><th  scope="col">Nombre</th><th >Categoria</th><th  scope="col">Precio</th></tr>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${resultado}" class="table-primary">
+        <td th:text="${r.nombre}"></td>
+        <td th:text="${r.categoria.nombre}"></td>
+        <td th:text="${r.precio}">€</td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

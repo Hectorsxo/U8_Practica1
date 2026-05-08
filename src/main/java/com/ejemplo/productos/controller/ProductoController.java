@@ -78,4 +78,22 @@ public class ProductoController {
         return "redirect:/productos";
     }
 
+    @GetMapping("/ejecutar/{parametro}/{filtro1}/{filtro2}")
+    public String ejecutar(@PathVariable("parametro") String parametro, @PathVariable("filtro1") String filtro1, @PathVariable("filtro2") String filtro2, Model model) {
+        //Debemos de rellenar productos y categorías para que no de error la página
+        model.addAttribute("productos", productoService.listar());
+        model.addAttribute("categorias", categoriaService.listar());
+        //Almcenaremos en la variable "resultado" el resultado de la consulta y lo mostraremos en el HTML
+        if(parametro.equals("buscarProductosPrecioMenorQue")){
+            model.addAttribute("resultado", productoService.obtenerProductosPrecioMenor(Double.parseDouble(filtro1)));
+        }else if(parametro.equals("buscarProductosPrecioMayorQue")){
+            //  model.addAttribute("resultado", productoService.buscarProductosPrecioMayorQue(Double.parseDouble(filtro1)));
+        }else if(parametro.equals("buscarProducto")){
+
+        }
+
+        //TODO añade el resto de métodos siguiendo la estructura del if-else-if
+        return "productos";
+    }
+
 }

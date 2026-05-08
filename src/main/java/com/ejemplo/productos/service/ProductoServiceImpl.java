@@ -4,6 +4,7 @@ import com.ejemplo.productos.model.Categoria;
 import com.ejemplo.productos.model.Producto;
 import com.ejemplo.productos.repository.CategoriaRepository;
 import com.ejemplo.productos.repository.ProductoRepository;
+import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -85,4 +86,18 @@ public class ProductoServiceImpl {
     public void eliminar(Long id) {
         repository.deleteById(id);
     }
+
+    public Optional<Producto> obtenerPorId(Long id) {
+        return repository.findById(id);
+    }
+
+    public @Nullable List<Producto> obtenerProductosPrecioMenor(double precio) {
+        if(precio == 0.0){
+            throw new IllegalArgumentException("El precio no puede ser cero");
+        }else{
+            return repository.findByPrecioLessThan(precio);
+        }
+    }
+
+
 }

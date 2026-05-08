@@ -1,8 +1,10 @@
 package com.ejemplo.productos.controller;
 
+import com.ejemplo.productos.model.Producto;
 import com.ejemplo.productos.service.CategoriaServiceImpl;
 import com.ejemplo.productos.service.ProductoServiceImpl;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("productos_actualizar")
 public class ProductoActualizarController {
-    private final ProductoService productoService;
-    private final CategoriaService categoriaService;
+    private final ProductoServiceImpl productoService;
+    private final CategoriaServiceImpl categoriaService;
 
-    public ProductoActualizarController(ProductoService productoService, CategoriaService categoriaService){
+    public ProductoActualizarController(ProductoServiceImpl productoService, CategoriaServiceImpl categoriaService){
         this.productoService = productoService;
         this.categoriaService = categoriaService;
     }
@@ -29,7 +31,7 @@ public class ProductoActualizarController {
 
     @PostMapping
     public String guardar(Producto producto){
-        productoService.guardarProducto(producto);
+        productoService.guardar(producto);
         return "redirect:/productos";
     }
 }
