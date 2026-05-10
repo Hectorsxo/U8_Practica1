@@ -16,10 +16,15 @@ body {
 }
 
 /* TITULO */
-h1 {
+h1, h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #2c3e50;
+}
+
+h2 {
+    margin-top: 40px;
+    font-size: 1.5rem;
 }
 
 /* FORMULARIO */
@@ -43,7 +48,7 @@ input, select {
     min-width: 150px;
 }
 
-/* BOTON */
+/* BOTONES Y ACCIONES GENERALES */
 button {
     padding: 10px 15px;
     background-color: #3498db;
@@ -75,10 +80,10 @@ li {
 /* LINKS GENERALES */
 a {
     display: inline-block;
-    margin-top: 15px;
     text-decoration: none;
     color: #3498db;
     font-weight: bold;
+    transition: color 0.2s;
 }
 
 a:hover {
@@ -86,7 +91,7 @@ a:hover {
 }
 
 /* ========================= */
-/* TABLA */
+/* TABLAS */
 /* ========================= */
 
 table {
@@ -99,7 +104,6 @@ table {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* ENCABEZADO */
 thead {
     background-color: #3498db;
     color: white;
@@ -111,35 +115,80 @@ th {
     font-weight: bold;
 }
 
-/* CELDAS */
 td {
     padding: 12px;
     border-bottom: 1px solid #eee;
-    vertical-align: middle; /* 🔥 clave para alinear todo */
+    vertical-align: middle;
 }
 
-/* HOVER FILAS */
 tbody tr:hover {
     background-color: #f2f9ff;
 }
 
-/* QUITAR BORDE FINAL */
 tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* BOTON ELIMINAR */
+/* BOTONES DENTRO DE TABLA */
 td a {
     display: inline-block;
     padding: 6px 10px;
-    background-color: #e74c3c;
     color: white;
     border-radius: 5px;
-    text-decoration: none;
     font-size: 14px;
     line-height: 1;
+    margin: 0 2px;
 }
 
-td a:hover {
+/* Diferenciación de colores en tabla */
+td a[href*="eliminar"] {
+    background-color: #e74c3c;
+}
+td a[href*="eliminar"]:hover {
     background-color: #c0392b;
+    text-decoration: none;
+}
+
+td a[href*="actualizar"], td a[href*="rellenar"] {
+    background-color: #27ae60;
+}
+td a[href*="actualizar"]:hover, td a[href*="rellenar"]:hover {
+    background-color: #219150;
+    text-decoration: none;
+}
+
+/* ========================= */
+/* BLOQUES DE EJERCICIOS */
+/* ========================= */
+
+.bloque-ejercicios {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border-left: 4px solid #3498db;
+}
+
+.bloque-ejercicios span {
+    display: block;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.ejercicio-link {
+    display: block;
+    margin: 5px 0;
+    font-size: 15px;
+    padding: 5px 0;
+}
+
+/* LÍNEA DIVISORIA HR */
+hr {
+    border: 0;
+    height: 1px;
+    background: #dcdde1;
+    margin: 30px 0;
 }

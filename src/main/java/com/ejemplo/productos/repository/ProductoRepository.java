@@ -16,6 +16,29 @@ import java.util.List;
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     List<Producto> findByPrecioLessThan(double precio);
+
     List<Producto> findByPrecioGreaterThan(double precio);
+
+    Producto findByNombre(String nombre);
+
+    List<Producto> findByNombreContaining(String texto);
+
+    List<Producto> findByNombreStartingWith(String texto);
+
+    List<Producto> findByNombreEndingWith(String texto);
+
+    List<Producto> findByCategoriaNombre(String categoria);
+
+    List<Producto> findByCategoriaNombreAndPrecioLessThan(String categoria, Double precio);
+
+    List<Producto> findByCategoriaNombreAndNombreContaining(String categoria, String nombre);
+
+    List<Producto> findByNombreContainingOrPrecioLessThan(String nombre, Double precio);
+
+    List<Producto> findByOrderByPrecioAsc();
+
+    List<Producto> findByPrecioBetween(Double min, Double max);
+
+    List<Producto> findByCategoriaNombreAndPrecioGreaterThan(String categoria, Double precio);
 
 }

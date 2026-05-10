@@ -91,6 +91,10 @@ public class ProductoServiceImpl {
         return repository.findById(id);
     }
 
+    // =====================================================
+    // BLOQUE 1
+    // =====================================================
+
     public @Nullable List<Producto> obtenerProductosPrecioMenor(double precio) {
         if(precio == 0.0){
             throw new IllegalArgumentException("El precio no puede ser cero");
@@ -99,5 +103,134 @@ public class ProductoServiceImpl {
         }
     }
 
+    public @Nullable List<Producto> obtenerProductosPrecioMayor(double precio) {
+        if(precio == 0.0){
+            throw new IllegalArgumentException("El precio no puede ser cero");
+        }else{
+            return repository.findByPrecioGreaterThan(precio);
+        }
+    }
+
+    public @Nullable Producto buscarProducto(String nombre) {
+        if(nombre == null || nombre.isEmpty()){
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }else{
+            return repository.findByNombre(nombre);
+        }
+    }
+
+    // =====================================================
+    // BLOQUE 2
+    // =====================================================
+
+    public @Nullable List<Producto> buscarProductosContengan(String texto) {
+        if(texto == null || texto.isEmpty()){
+            throw new IllegalArgumentException("El texto no puede estar vacío");
+        }else{
+            return repository.findByNombreContaining(texto);
+        }
+    }
+
+    public @Nullable List<Producto> buscarProductosEmpiecenPor(String texto) {
+        if(texto == null || texto.isEmpty()){
+            throw new IllegalArgumentException("El texto no puede estar vacío");
+        }else{
+            return repository.findByNombreStartingWith(texto);
+        }
+    }
+
+    public @Nullable List<Producto> buscarProductosTerminenPor(String texto) {
+        if(texto == null || texto.isEmpty()){
+            throw new IllegalArgumentException("El texto no puede estar vacío");
+        }else{
+            return repository.findByNombreEndingWith(texto);
+        }
+    }
+
+    // =====================================================
+    // BLOQUE 3
+    // =====================================================
+
+    public @Nullable List<Producto> buscarProductosCategoria(String categoria) {
+        if(categoria == null || categoria.isEmpty()){
+            throw new IllegalArgumentException("La categoría no puede estar vacía");
+        }else{
+            return repository.findByCategoriaNombre(categoria);
+        }
+    }
+
+    public @Nullable List<Producto> buscarProductosCategoriaPrecioMenor(String categoria,
+                                                                        double precio) {
+
+        if(categoria == null || categoria.isEmpty()){
+            throw new IllegalArgumentException("La categoría no puede estar vacía");
+        }else if(precio == 0.0){
+            throw new IllegalArgumentException("El precio no puede ser cero");
+        }else{
+            return repository.findByCategoriaNombreAndPrecioLessThan(categoria, precio);
+        }
+    }
+
+    public @Nullable List<Producto> buscarProductosCategoriaNombre(String categoria,
+                                                                   String nombre) {
+
+        if(categoria == null || categoria.isEmpty()){
+            throw new IllegalArgumentException("La categoría no puede estar vacía");
+        }else if(nombre == null || nombre.isEmpty()){
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }else{
+            return repository.findByCategoriaNombreAndNombreContaining(categoria, nombre);
+        }
+    }
+
+    // =====================================================
+    // BLOQUE 4
+    // =====================================================
+
+    public @Nullable List<Producto> buscarProductosNombreOPrecio(String nombre,
+                                                                 double precio) {
+
+        if(nombre == null || nombre.isEmpty()){
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }else if(precio == 0.0){
+            throw new IllegalArgumentException("El precio no puede ser cero");
+        }else{
+            return repository.findByNombreContainingOrPrecioLessThan(nombre, precio);
+        }
+    }
+
+    // =====================================================
+    // BLOQUE 5
+    // =====================================================
+
+    public @Nullable List<Producto> ordenarPrecioAsc() {
+        return repository.findByOrderByPrecioAsc();
+    }
+
+    // =====================================================
+    // BLOQUE 6
+    // =====================================================
+
+    public @Nullable List<Producto> buscarProductosEntrePrecios(double min,
+                                                                double max) {
+
+        if(min == 0.0 || max == 0.0){
+            throw new IllegalArgumentException("Los precios no pueden ser cero");
+        }else{
+            return repository.findByPrecioBetween(min, max);
+        }
+    }
+
+    public @Nullable List<Producto> buscarCategoriaPrecioMayor(String categoria,
+                                                               double precio) {
+
+        if(categoria == null || categoria.isEmpty()){
+            throw new IllegalArgumentException("La categoría no puede estar vacía");
+        }else if(precio == 0.0){
+            throw new IllegalArgumentException("El precio no puede ser cero");
+        }else{
+            return repository.findByCategoriaNombreAndPrecioGreaterThan(categoria, precio);
+        }
+    }
 
 }

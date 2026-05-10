@@ -26,7 +26,7 @@ public class ProductoActualizarController {
         Producto producto = productoService.obtenerPorId(id).get();
         model.addAttribute("producto", producto);
         model.addAttribute("categorias", categoriaService.listar());
-        return "productos.actualizar";
+        return "productos_actualizar";
     }
 
     @PostMapping
