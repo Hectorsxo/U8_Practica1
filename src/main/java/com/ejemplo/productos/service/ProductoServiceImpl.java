@@ -44,24 +44,23 @@ public class ProductoServiceImpl {
     }
 
     /**
-     * Obtiene la lista de todos los productos.
+     * Obtiene la lista de todos los productos almacenados.
      *
-     * @return lista de productos
+     * @return lista de objetos Producto.
      */
     public List<Producto> listar() {
         return repository.findAll();
     }
 
     /**
-     * Guarda un producto en el sistema.
+     * Guarda un producto en el sistema tras validar sus campos obligatorios.
      *
-     * Valida que el producto no sea nulo, que tenga nombre válido
-     * y que tenga una categoría existente. Además, normaliza los datos
-     * antes de guardarlos.
+     * El nombre se normaliza a mayúsculas y se vincula la categoría completa
+     * recuperada desde el repositorio antes de la persistencia.
      *
-     * @param producto producto a guardar
-     * @throws IllegalArgumentException si el producto es nulo, el nombre es inválido
-     *                                  o no tiene categoría asignada
+     * @param producto objeto producto a guardar.
+     * @throws IllegalArgumentException si el producto es nulo, el nombre está vacío
+     *                                  o no tiene una categoría asociada.
      */
     public void guardar(Producto producto) {
         if (producto == null || producto.getNombre() == null) {
@@ -83,18 +82,35 @@ public class ProductoServiceImpl {
         repository.save(producto);
     }
 
+    /**
+     * Elimina un producto del sistema mediante su identificador único.
+     *
+     * @param id identificador del producto a eliminar.
+     */
     public void eliminar(Long id) {
         repository.deleteById(id);
     }
 
+    /**
+     * Busca un producto por su identificador único.
+     *
+     * @param id identificador del producto.
+     * @return un Optional que contiene el producto si se encuentra.
+     */
     public Optional<Producto> obtenerPorId(Long id) {
         return repository.findById(id);
     }
 
-    // =====================================================
-    // BLOQUE 1
-    // =====================================================
 
+    // BLOQUE 1:
+
+    /**
+     * Obtiene productos con un precio estrictamente inferior al valor dado.
+     *
+     * @param precio valor límite superior.
+     * @return lista de productos encontrados.
+     * @throws IllegalArgumentException si el precio es 0.0.
+     */
     public @Nullable List<Producto> obtenerProductosPrecioMenor(double precio) {
         if(precio == 0.0){
             throw new IllegalArgumentException("El precio no puede ser cero");
@@ -103,6 +119,13 @@ public class ProductoServiceImpl {
         }
     }
 
+    /**
+     * Obtiene productos con un precio estrictamente superior al valor dado.
+     *
+     * @param precio valor límite inferior.
+     * @return lista de productos encontrados.
+     * @throws IllegalArgumentException si el precio es 0.0.
+     */
     public @Nullable List<Producto> obtenerProductosPrecioMayor(double precio) {
         if(precio == 0.0){
             throw new IllegalArgumentException("El precio no puede ser cero");
@@ -111,6 +134,13 @@ public class ProductoServiceImpl {
         }
     }
 
+    /**
+     * Busca un producto por su nombre exacto.
+     *
+     * @param nombre nombre a buscar.
+     * @return el producto si existe, o null.
+     * @throws IllegalArgumentException si el nombre es nulo o vacío.
+     */
     public @Nullable Producto buscarProducto(String nombre) {
         if(nombre == null || nombre.isEmpty()){
             throw new IllegalArgumentException("El nombre no puede estar vacío");
@@ -119,10 +149,16 @@ public class ProductoServiceImpl {
         }
     }
 
-    // =====================================================
-    // BLOQUE 2
-    // =====================================================
 
+    // BLOQUE 2
+
+    /**
+     * Busca productos cuyo nombre contenga el texto indicado.
+     *
+     * @param texto cadena a buscar.
+     * @return lista de productos que contienen el texto.
+     * @throws IllegalArgumentException si el texto es nulo o vacío.
+     */
     public @Nullable List<Producto> buscarProductosContengan(String texto) {
         if(texto == null || texto.isEmpty()){
             throw new IllegalArgumentException("El texto no puede estar vacío");
@@ -131,6 +167,13 @@ public class ProductoServiceImpl {
         }
     }
 
+    /**
+     * Busca productos cuyo nombre comience por el texto indicado.
+     *
+     * @param texto prefijo a buscar.
+     * @return lista de productos encontrados.
+     * @throws IllegalArgumentException si el texto es nulo o vacío.
+     */
     public @Nullable List<Producto> buscarProductosEmpiecenPor(String texto) {
         if(texto == null || texto.isEmpty()){
             throw new IllegalArgumentException("El texto no puede estar vacío");
@@ -139,6 +182,13 @@ public class ProductoServiceImpl {
         }
     }
 
+    /**
+     * Busca productos cuyo nombre finalice con el texto indicado.
+     *
+     * @param texto sufijo a buscar.
+     * @return lista de productos encontrados.
+     * @throws IllegalArgumentException si el texto es nulo o vacío.
+     */
     public @Nullable List<Producto> buscarProductosTerminenPor(String texto) {
         if(texto == null || texto.isEmpty()){
             throw new IllegalArgumentException("El texto no puede estar vacío");
@@ -147,10 +197,16 @@ public class ProductoServiceImpl {
         }
     }
 
-    // =====================================================
-    // BLOQUE 3
-    // =====================================================
 
+    // BLOQUE 3
+
+    /**
+     * Obtiene productos pertenecientes a una categoría específica.
+     *
+     * @param categoria nombre de la categoría.
+     * @return lista de productos en esa categoría.
+     * @throws IllegalArgumentException si el nombre de categoría es nulo o vacío.
+     */
     public @Nullable List<Producto> buscarProductosCategoria(String categoria) {
         if(categoria == null || categoria.isEmpty()){
             throw new IllegalArgumentException("La categoría no puede estar vacía");
@@ -159,6 +215,14 @@ public class ProductoServiceImpl {
         }
     }
 
+    /**
+     * Obtiene productos de una categoría con precio inferior al indicado.
+     *
+     * @param categoria nombre de la categoría.
+     * @param precio límite de precio.
+     * @return lista de productos filtrados.
+     * @throws IllegalArgumentException si los parámetros son inválidos.
+     */
     public @Nullable List<Producto> buscarProductosCategoriaPrecioMenor(String categoria,
                                                                         double precio) {
 
@@ -171,6 +235,14 @@ public class ProductoServiceImpl {
         }
     }
 
+    /**
+     * Obtiene productos de una categoría cuyo nombre contenga un texto específico.
+     *
+     * @param categoria nombre de la categoría.
+     * @param nombre texto a buscar en el nombre del producto.
+     * @return lista de productos filtrados.
+     * @throws IllegalArgumentException si los parámetros son inválidos.
+     */
     public @Nullable List<Producto> buscarProductosCategoriaNombre(String categoria,
                                                                    String nombre) {
 
@@ -183,10 +255,17 @@ public class ProductoServiceImpl {
         }
     }
 
-    // =====================================================
-    // BLOQUE 4
-    // =====================================================
 
+    // BLOQUE 4
+
+    /**
+     * Busca productos que coincidan por nombre o que tengan un precio inferior al dado.
+     *
+     * @param nombre texto a buscar en el nombre.
+     * @param precio límite de precio para la condición OR.
+     * @return lista de productos que cumplen alguna de las condiciones.
+     * @throws IllegalArgumentException si los parámetros son inválidos.
+     */
     public @Nullable List<Producto> buscarProductosNombreOPrecio(String nombre,
                                                                  double precio) {
 
@@ -199,18 +278,29 @@ public class ProductoServiceImpl {
         }
     }
 
-    // =====================================================
-    // BLOQUE 5
-    // =====================================================
 
+    // BLOQUE 5
+
+    /**
+     * Obtiene todos los productos ordenados por precio ascendentemente.
+     *
+     * @return lista de productos ordenada.
+     */
     public @Nullable List<Producto> ordenarPrecioAsc() {
         return repository.findByOrderByPrecioAsc();
     }
 
-    // =====================================================
-    // BLOQUE 6
-    // =====================================================
 
+    // BLOQUE 6
+
+    /**
+     * Obtiene productos cuyo precio se encuentre en un rango determinado.
+     *
+     * @param min precio mínimo.
+     * @param max precio máximo.
+     * @return lista de productos dentro del rango.
+     * @throws IllegalArgumentException si algún precio es 0.0.
+     */
     public @Nullable List<Producto> buscarProductosEntrePrecios(double min,
                                                                 double max) {
 
@@ -221,6 +311,14 @@ public class ProductoServiceImpl {
         }
     }
 
+    /**
+     * Obtiene productos de una categoría con precio superior al indicado.
+     *
+     * @param categoria nombre de la categoría.
+     * @param precio límite de precio inferior.
+     * @return lista de productos filtrados.
+     * @throws IllegalArgumentException si los parámetros son inválidos.
+     */
     public @Nullable List<Producto> buscarCategoriaPrecioMayor(String categoria,
                                                                double precio) {
 

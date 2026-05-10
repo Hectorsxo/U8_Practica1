@@ -8,10 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controlador encargado de gestionar las operaciones relacionadas con los productos.
+ * Controlador principal para la gestión del catálogo de productos.
  *
- * Permite listar los productos, registrar nuevos productos
- * y ejecutar consultas derivadas JPA.
+ * Esta clase centraliza las operaciones de visualización, creación y eliminación
+ * de productos, además de proporcionar una interfaz para ejecutar consultas
+ * avanzadas (filtros) mediante métodos derivados de Spring Data JPA.
  *
  * @author Héctor Crespo
  * @version 1.0
@@ -21,20 +22,20 @@ import org.springframework.web.bind.annotation.*;
 public class ProductoController {
 
     /**
-     * Servicio que contiene la lógica de negocio para los productos.
+     * Servicio especializado en la lógica de negocio y persistencia de productos.
      */
     private final ProductoServiceImpl productoService;
 
     /**
-     * Servicio que contiene la lógica de negocio para las categorías.
+     * Servicio especializado en la gestión de las categorías de productos.
      */
     private final CategoriaServiceImpl categoriaService;
 
     /**
-     * Constructor que inyecta los servicios de productos y categorías.
+     * Constructor que inicializa los servicios necesarios mediante inyección de dependencias.
      *
-     * @param productoService servicio de productos
-     * @param categoriaService servicio de categorías
+     * @param productoService Implementación del servicio de productos.
+     * @param categoriaService Implementación del servicio de categorías.
      */
     public ProductoController(ProductoServiceImpl productoService,
                               CategoriaServiceImpl categoriaService) {
@@ -43,63 +44,57 @@ public class ProductoController {
     }
 
     /**
-     * Maneja las peticiones GET para listar los productos.
+     * Gestiona las peticiones GET para visualizar el inventario completo.
      *
-     * Añade al modelo la lista de productos, la lista de categorías
-     * y un objeto producto vacío para el formulario.
+     * Prepara el modelo con la lista total de productos, las categorías disponibles
+     * y un objeto vacío para el formulario de inserción.
      *
-     * @param model objeto que transporta datos a la vista
-     * @return nombre de la vista que muestra los productos
+     * @param model Objeto de Spring UI para el envío de datos a la vista.
+     * @return Nombre de la plantilla Thymeleaf para la página de productos.
      */
     @GetMapping
     public String listar(Model model) {
-
         model.addAttribute("productos", productoService.listar());
         model.addAttribute("categorias", categoriaService.listar());
         model.addAttribute("producto", new Producto());
-
         return "productos";
     }
 
     /**
-     * Maneja las peticiones POST para guardar un producto.
+     * Procesa el envío del formulario para registrar o actualizar un producto.
      *
-     * Recibe un producto desde el formulario, lo guarda mediante el servicio
-     * y redirige a la lista de productos.
-     *
-     * @param producto objeto producto a guardar
-     * @return redirección a la lista de productos
+     * @param producto El objeto producto vinculado desde la vista mediante ModelAttribute.
+     * @return Redirección a la ruta base de productos para refrescar la lista.
      */
     @PostMapping
     public String guardar(@ModelAttribute Producto producto) {
-
         productoService.guardar(producto);
-
         return "redirect:/productos";
     }
 
     /**
-     * Elimina un producto por su ID.
+     * Elimina de forma permanente un producto del sistema basándose en su identificador.
      *
-     * @param id identificador del producto
-     * @return redirección a la lista de productos
+     * @param id El identificador único (Primary Key) del producto a borrar.
+     * @return Redirección a la ruta base de productos.
      */
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
-
         productoService.eliminar(id);
-
         return "redirect:/productos";
     }
 
     /**
-     * Ejecuta diferentes consultas derivadas JPA.
+     * Punto de entrada dinámico para la ejecución de consultas filtradas (Derived Queries).
      *
-     * @param parametro tipo de consulta
-     * @param filtro1 primer filtro
-     * @param filtro2 segundo filtro
-     * @param model modelo para enviar datos a la vista
-     * @return vista productos
+     * Este método evalúa el parámetro de acción y aplica filtros basados en nombres,
+     * rangos de precios, coincidencias parciales o categorías.
+     *
+     * @param parametro Cadena que define el tipo de búsqueda o filtrado a realizar.
+     * @param filtro1 Primer criterio de búsqueda (ej. nombre, precio mínimo o categoría).
+     * @param filtro2 Segundo criterio de búsqueda opcional (ej. precio máximo o nombre secundario).
+     * @param model Objeto Model para inyectar los resultados de la consulta en la vista.
+     * @return Nombre de la plantilla de productos con la lista de resultados actualizada.
      */
     @GetMapping("/ejecutar/{parametro}/{filtro1}/{filtro2}")
     public String ejecutar(@PathVariable("parametro") String parametro,
@@ -107,88 +102,70 @@ public class ProductoController {
                            @PathVariable("filtro2") String filtro2,
                            Model model) {
 
-        // Datos necesarios para la vista
+        // Carga inicial de datos contextuales para mantener la integridad de la vista
         model.addAttribute("productos", productoService.listar());
         model.addAttribute("categorias", categoriaService.listar());
 
-        // BLOQUE 1
+        // Selección de consulta basada en el parámetro dinámico
         if (parametro.equals("buscarProductosPrecioMenorQue")) {
-
             model.addAttribute("resultado",
                     productoService.obtenerProductosPrecioMenor(
                             Double.parseDouble(filtro1)));
 
         } else if (parametro.equals("buscarProductosPrecioMayorQue")) {
-
             model.addAttribute("resultado",
                     productoService.obtenerProductosPrecioMayor(
                             Double.parseDouble(filtro1)));
 
         } else if (parametro.equals("buscarProducto")) {
-
             model.addAttribute("resultado",
                     productoService.buscarProducto(filtro1));
 
-            // BLOQUE 2
         } else if (parametro.equals("buscarProductosContengan")) {
-
             model.addAttribute("resultado",
                     productoService.buscarProductosContengan(filtro1));
 
         } else if (parametro.equals("buscarProductosEmpiecenPor")) {
-
             model.addAttribute("resultado",
                     productoService.buscarProductosEmpiecenPor(filtro1));
 
         } else if (parametro.equals("buscarProductosTerminenPor")) {
-
             model.addAttribute("resultado",
                     productoService.buscarProductosTerminenPor(filtro1));
 
-            // BLOQUE 3
         } else if (parametro.equals("buscarProductosCategoria")) {
-
             model.addAttribute("resultado",
                     productoService.buscarProductosCategoria(filtro1));
 
         } else if (parametro.equals("buscarProductosCategoriaPrecioMenor")) {
-
             model.addAttribute("resultado",
                     productoService.buscarProductosCategoriaPrecioMenor(
                             filtro1,
                             Double.parseDouble(filtro2)));
 
         } else if (parametro.equals("buscarProductosCategoriaNombre")) {
-
             model.addAttribute("resultado",
                     productoService.buscarProductosCategoriaNombre(
                             filtro1,
                             filtro2));
 
-            // BLOQUE 4
         } else if (parametro.equals("buscarProductosNombreOPrecio")) {
-
             model.addAttribute("resultado",
                     productoService.buscarProductosNombreOPrecio(
                             filtro1,
                             Double.parseDouble(filtro2)));
 
-            // BLOQUE 5
         } else if (parametro.equals("ordenarPrecioAsc")) {
-
             model.addAttribute("resultado",
                     productoService.ordenarPrecioAsc());
 
-            // BLOQUE 6
         } else if (parametro.equals("buscarProductosEntrePrecios")) {
-
             model.addAttribute("resultado",
                     productoService.buscarProductosEntrePrecios(
                             Double.parseDouble(filtro1),
                             Double.parseDouble(filtro2)));
 
         } else if (parametro.equals("buscarCategoriaPrecioMayor")) {
-
             model.addAttribute("resultado",
                     productoService.buscarCategoriaPrecioMayor(
                             filtro1,

@@ -47,11 +47,14 @@ public class Producto {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
-    @Transient //No detecta el campo como columna
+    /**
+     * Campo auxiliar para conteos, no persistido en la base de datos.
+     */
+    @Transient
     private int contador;
 
     /**
-     * Constructor vacío necesario para la creación de objetos.
+     * Constructor vacío.
      */
     public Producto() {}
 
@@ -62,6 +65,7 @@ public class Producto {
      * @param id identificador del producto
      * @param nombre nombre del producto
      * @param precio precio del producto
+     * @param descripcion descripcion del producto
      * @param categoria categoría del producto
      */
     public Producto(Long id, String nombre, double precio, String descripcion, Categoria categoria) {
@@ -144,10 +148,20 @@ public class Producto {
         this.categoria = categoria;
     }
 
+    /**
+     * Obtiene la descripción detallada del producto.
+     *
+     * @return descripción del producto
+     */
     public String getDescripcion() {
         return descripcion;
     }
 
+    /**
+     * Establece la descripción detallada del producto.
+     *
+     * @param descripcion descripción del producto
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }

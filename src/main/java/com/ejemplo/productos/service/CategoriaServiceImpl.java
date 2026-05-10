@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Servicio que gestiona la lógica de negocio relacionada con las categorías.
+ * Implementación del servicio para la gestión de categorías.
  *
- * Se encarga de validar los datos y delegar las operaciones al repositorio.
+ * Esta clase actúa como capa intermedia entre el controlador y el repositorio,
+ * encargándose de la lógica de negocio, como la normalización de datos y
+ * validaciones antes de la persistencia.
  *
  * @author Héctor Crespo
  * @version 1.0
@@ -18,36 +20,38 @@ import java.util.List;
 public class CategoriaServiceImpl {
 
     /**
-     * Repositorio de categorías para el acceso a datos.
+     * Referencia al repositorio de categorías para realizar operaciones de persistencia.
      */
     private final CategoriaRepository repository;
 
     /**
-     * Constructor que inyecta el repositorio de categorías.
+     * Constructor que inicializa el repositorio mediante inyección de dependencias.
      *
-     * @param repository repositorio de categorías
+     * @param repository Repositorio de categorías a inyectar.
      */
     public CategoriaServiceImpl(CategoriaRepository repository) {
         this.repository = repository;
     }
 
     /**
-     * Obtiene la lista de todas las categorías.
+     * Recupera todas las categorías almacenadas en la base de datos.
      *
-     * @return lista de categorías
+     * @return Una lista que contiene todos los objetos Categoria registrados.
      */
     public List<Categoria> listar() {
         return repository.findAll();
     }
 
     /**
-     * Guarda una categoría en el sistema.
+     * Registra una nueva categoría en el sistema tras aplicar lógica de negocio.
      *
-     * Realiza validaciones sobre el nombre de la categoría antes de guardarla.
-     * Convierte el nombre a mayúsculas antes de almacenarlo.
+     * El método valida que el objeto no sea nulo y que el nombre sea válido.
+     * Como regla de negocio, el nombre de la categoría se transforma a
+     * letras mayúsculas antes de ser persistido.
      *
-     * @param categoria categoría a guardar
-     * @throws IllegalArgumentException si la categoría es nula, el nombre es nulo o está vacío
+     * @param categoria El objeto categoría que se desea guardar.
+     * @throws IllegalArgumentException Si la categoría es nula, si el nombre es
+     *         nulo o si la cadena del nombre está vacía.
      */
     public void guardar(Categoria categoria) {
         if (categoria == null || categoria.getNombre() == null) {
@@ -58,6 +62,7 @@ public class CategoriaServiceImpl {
             throw new IllegalArgumentException("Nombre vacío");
         }
 
+        // Normalización de datos: convertir a mayúsculas
         categoria.setNombre(categoria.getNombre().toUpperCase());
 
         repository.save(categoria);
