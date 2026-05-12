@@ -2,6 +2,8 @@ package com.ejemplo.productos.model;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 /**
  * Clase que representa un producto dentro del sistema.
  *
@@ -46,6 +48,9 @@ public class Producto {
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
+
+    @ManyToMany(mappedBy = "productos")
+    private Set<Pedido> pedidos;
 
     /**
      * Campo auxiliar para conteos, no persistido en la base de datos.
