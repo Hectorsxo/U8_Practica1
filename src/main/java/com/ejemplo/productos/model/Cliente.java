@@ -26,10 +26,11 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Long id, String nombre, String ciudad) {
+    public Cliente(Long id, String nombre, String ciudad, List<Pedido> pedidos) {
         this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
+        this.pedidos = pedidos;
     }
 
     public Long getId() {

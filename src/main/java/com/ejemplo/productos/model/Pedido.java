@@ -29,7 +29,8 @@ public class Pedido {
     @ManyToMany
     @JoinTable(name = "pedido_producto",
           joinColumns = @JoinColumn(name = "pedido_id"),
-          inverseJoinColumns = @JoinColumn(name = "producto_id"))
+          inverseJoinColumns = @JoinColumn(name = "producto_id")
+    )
     private Set<Producto> productos;
 
     public Pedido() {

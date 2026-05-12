@@ -72,13 +72,16 @@ public class Producto {
      * @param precio precio del producto
      * @param descripcion descripcion del producto
      * @param categoria categoría del producto
+     * @param pedidos pedidos
      */
-    public Producto(Long id, String nombre, double precio, String descripcion, Categoria categoria) {
+
+    public Producto(Long id, String nombre, double precio, String descripcion, Categoria categoria, Set<Pedido> pedidos) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.descripcion = descripcion;
         this.categoria = categoria;
+        this.pedidos = pedidos;
     }
 
     /**
