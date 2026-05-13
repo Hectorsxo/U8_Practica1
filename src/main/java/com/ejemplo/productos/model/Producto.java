@@ -1,7 +1,6 @@
 package com.ejemplo.productos.model;
 
 import jakarta.persistence.*;
-
 import java.util.Set;
 
 /**
@@ -33,8 +32,8 @@ public class Producto {
     /**
      * Precio del producto.
      */
-    @Column(name = "precio_producto", nullable = true)
-    private double precio;
+    @Column(name = "precio", nullable = true)
+    private Double precio;
 
     /**
      * Descripción del producto.
@@ -75,7 +74,7 @@ public class Producto {
      * @param pedidos pedidos
      */
 
-    public Producto(Long id, String nombre, double precio, String descripcion, Categoria categoria, Set<Pedido> pedidos) {
+    public Producto(Long id, String nombre, Double precio, String descripcion, Categoria categoria, Set<Pedido> pedidos) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -125,7 +124,7 @@ public class Producto {
      *
      * @return precio del producto
      */
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
@@ -134,7 +133,7 @@ public class Producto {
      *
      * @param precio precio del producto
      */
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

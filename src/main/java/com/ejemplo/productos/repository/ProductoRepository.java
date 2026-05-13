@@ -2,6 +2,7 @@ package com.ejemplo.productos.repository;
 
 import com.ejemplo.productos.model.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Héctor Crespo
  * @version 1.0
  */
+@Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     /**

@@ -2,6 +2,7 @@ package com.ejemplo.productos.repository;
 
 import com.ejemplo.productos.model.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * Interfaz de acceso a datos para la entidad Categoria.
@@ -13,6 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * No requiere una implementación manual, ya que Spring Data JPA genera
  * automáticamente la lógica necesaria en tiempo de ejecución.
  */
+@Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 
 }

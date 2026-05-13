@@ -1,7 +1,6 @@
 package com.ejemplo.productos.model;
 
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.Set;
 
