@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Interfaz de acceso a datos para la entidad Producto.
+ * Repositorio de acceso a datos para la entidad Producto.
  *
  * Extiende JpaRepository para heredar operaciones CRUD básicas y define métodos
  * de consulta derivados (Query Methods) para realizar búsquedas personalizadas

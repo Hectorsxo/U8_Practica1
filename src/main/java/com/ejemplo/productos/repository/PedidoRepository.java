@@ -5,18 +5,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repositorio para la gestión de entidades {@link Pedido}.
+ * Repositorio para la gestión de entidad Pedido.
  *
  * Proporciona operaciones CRUD y funcionalidades de acceso
  * a datos sobre la tabla de pedidos utilizando Spring Data JPA.
  *
  * Hereda métodos estándar como:
- * <ul>
- *     <li>guardar pedidos</li>
- *     <li>buscar pedidos por identificador</li>
- *     <li>listar pedidos</li>
- *     <li>eliminar pedidos</li>
- * </ul>
+ *
+ * - Guardar pedidos
+ * - Buscar pedidos por identificador
+ * - Listar pedidos
+ * - Eliminar pedidos
+ *
  *
  * @author Héctor Crespo
  * @version 1.0

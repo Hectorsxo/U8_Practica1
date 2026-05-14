@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Interfaz de acceso a datos para la entidad Categoria.
+ * Repositorio de acceso a datos para la entidad Categoria.
  *
  * Al extender JpaRepository, esta interfaz hereda todos los métodos estándar
  * de Spring Data JPA para realizar operaciones CRUD (Crear, Leer, Actualizar, Borrar)

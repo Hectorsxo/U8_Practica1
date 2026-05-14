@@ -5,18 +5,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repositorio para la gestión de entidades {@link Cliente}.
+ * Repositorio para la gestión de entidad Cliente.
  *
  * Proporciona operaciones CRUD y funcionalidades de acceso
  * a datos sobre la tabla de clientes utilizando Spring Data JPA.
  *
  * Hereda métodos estándar como:
- * <ul>
- *     <li>guardar clientes</li>
- *     <li>buscar clientes por identificador</li>
- *     <li>listar clientes</li>
- *     <li>eliminar clientes</li>
- * </ul>
+ *
+ * - Guardar clientes
+ * - Buscar clientes por identificador
+ * - Listar clientes
+ * - Eliminar clientes
+ *
  *
  * @author Héctor Crespo
  * @version 1.0
