@@ -85,4 +85,26 @@ public class Categoria {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    /**
+     * Obtiene la lista de productos de la categoría.
+     *
+     * @return lista de productos
+     */
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    /**
+     * Establece la lista de productos de la categoría.
+     *
+     * @param productos lista de productos
+     */
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
 }
+
+
+
+

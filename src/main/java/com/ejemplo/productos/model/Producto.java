@@ -9,6 +9,9 @@ import java.util.Set;
  * Contiene información básica como el identificador, nombre,
  * precio y la categoría a la que pertenece.
  *
+ * Además, mantiene la relación con los pedidos asociados
+ * al producto.
+ *
  * @author Héctor Crespo
  * @version 1.0
  */
@@ -48,20 +51,17 @@ public class Producto {
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
+    /**
+     * Conjunto de pedidos asociados al producto.
+     */
     @ManyToMany(mappedBy = "productos")
     private Set<Pedido> pedidos;
 
     /**
-     * Campo auxiliar para conteos, no persistido en la base de datos.
+     * Constructor vacío necesario para JPA.
      */
-    @Transient
-    private int contador;
-
-    /**
-     * Constructor vacío.
-     */
-    public Producto() {}
-
+    public Producto() {
+    }
 
     /**
      * Constructor con parámetros para inicializar el producto.
@@ -69,12 +69,14 @@ public class Producto {
      * @param id identificador del producto
      * @param nombre nombre del producto
      * @param precio precio del producto
-     * @param descripcion descripcion del producto
+     * @param descripcion descripción del producto
      * @param categoria categoría del producto
-     * @param pedidos pedidos
+     * @param pedidos conjunto de pedidos asociados
      */
+    public Producto(Long id, String nombre, Double precio,
+                    String descripcion, Categoria categoria,
+                    Set<Pedido> pedidos) {
 
-    public Producto(Long id, String nombre, Double precio, String descripcion, Categoria categoria, Set<Pedido> pedidos) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -138,6 +140,24 @@ public class Producto {
     }
 
     /**
+     * Obtiene la descripción detallada del producto.
+     *
+     * @return descripción del producto
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * Establece la descripción detallada del producto.
+     *
+     * @param descripcion descripción del producto
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    /**
      * Obtiene la categoría del producto.
      *
      * @return categoría del producto
@@ -156,20 +176,20 @@ public class Producto {
     }
 
     /**
-     * Obtiene la descripción detallada del producto.
+     * Obtiene los pedidos asociados al producto.
      *
-     * @return descripción del producto
+     * @return conjunto de pedidos
      */
-    public String getDescripcion() {
-        return descripcion;
+    public Set<Pedido> getPedidos() {
+        return pedidos;
     }
 
     /**
-     * Establece la descripción detallada del producto.
+     * Establece los pedidos asociados al producto.
      *
-     * @param descripcion descripción del producto
+     * @param pedidos conjunto de pedidos
      */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setPedidos(Set<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }
