@@ -17,7 +17,7 @@ import java.util.Set;
  * @version 1.0
  */
 @Entity
-@Table(name = "pedidos")
+@Table(name = "pedido")
 public class Pedido {
 
     /**
@@ -41,12 +41,17 @@ public class Pedido {
 
     /**
      * Fecha de realización del pedido.
+     *
+     * Se almacena como fecha y hora en la base de datos.
      */
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha", nullable = false)
     private Date fecha;
 
     /**
      * Cliente que realizó el pedido.
+     *
+     * Relación muchos a uno: muchos pedidos pueden pertenecer a un mismo cliente.
      */
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -54,6 +59,9 @@ public class Pedido {
 
     /**
      * Conjunto de productos incluidos en el pedido.
+     *
+     * Relación muchos a muchos entre pedidos y productos,
+     * gestionada mediante la tabla intermedia pedido_producto.
      */
     @ManyToMany
     @JoinTable(
@@ -65,6 +73,8 @@ public class Pedido {
 
     /**
      * Constructor vacío necesario para JPA.
+     *
+     * Permite la creación de instancias sin inicializar atributos.
      */
     public Pedido() {
     }
@@ -89,7 +99,7 @@ public class Pedido {
     /**
      * Obtiene el identificador del pedido.
      *
-     * @return identificador del pedido
+     * @return id del pedido
      */
     public Long getId() {
         return id;
@@ -116,7 +126,7 @@ public class Pedido {
     /**
      * Establece la descripción del pedido.
      *
-     * @param descripcion descripción del pedido
+     * @param descripcion texto descriptivo del pedido
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
@@ -125,7 +135,7 @@ public class Pedido {
     /**
      * Obtiene el importe total del pedido.
      *
-     * @return importe total
+     * @return total del pedido
      */
     public Double getTotal() {
         return total;
@@ -134,14 +144,14 @@ public class Pedido {
     /**
      * Establece el importe total del pedido.
      *
-     * @param total importe total
+     * @param total valor total del pedido
      */
     public void setTotal(Double total) {
         this.total = total;
     }
 
     /**
-     * Obtiene la fecha del pedido.
+     * Obtiene la fecha de realización del pedido.
      *
      * @return fecha del pedido
      */
@@ -150,7 +160,7 @@ public class Pedido {
     }
 
     /**
-     * Establece la fecha del pedido.
+     * Establece la fecha de realización del pedido.
      *
      * @param fecha fecha del pedido
      */
@@ -177,18 +187,18 @@ public class Pedido {
     }
 
     /**
-     * Obtiene el conjunto de productos del pedido.
+     * Obtiene los productos incluidos en el pedido.
      *
-     * @return conjunto de productos
+     * @return conjunto de productos del pedido
      */
     public Set<Producto> getProductos() {
         return productos;
     }
 
     /**
-     * Establece el conjunto de productos del pedido.
+     * Establece los productos incluidos en el pedido.
      *
-     * @param productos conjunto de productos
+     * @param productos conjunto de productos del pedido
      */
     public void setProductos(Set<Producto> productos) {
         this.productos = productos;

@@ -16,7 +16,7 @@ import java.util.Set;
  * @version 1.0
  */
 @Entity
-@Table(name = "productos")
+@Table(name = "producto")
 public class Producto {
 
     /**
@@ -29,23 +29,25 @@ public class Producto {
     /**
      * Nombre del producto.
      */
-    @Column(name = "nombre_producto", nullable = false, length = 200)
+    @Column(name = "nombre", nullable = false, length = 150)
     private String nombre;
 
     /**
      * Precio del producto.
      */
-    @Column(name = "precio", nullable = true)
+    @Column(name = "precio", nullable = false)
     private Double precio;
 
     /**
-     * Descripción del producto.
+     * Descripción del producto (solo en memoria, no persistida en BD).
      */
-    @Column(name = "descripcion_producto", nullable = false, length = 600)
+    @Transient
     private String descripcion;
 
     /**
      * Categoría a la que pertenece el producto.
+     *
+     * Relación muchos a uno: muchos productos pertenecen a una categoría.
      */
     @ManyToOne
     @JoinColumn(name = "categoria_id")
@@ -53,6 +55,8 @@ public class Producto {
 
     /**
      * Conjunto de pedidos asociados al producto.
+     *
+     * Relación muchos a muchos con Pedido.
      */
     @ManyToMany(mappedBy = "productos")
     private Set<Pedido> pedidos;
@@ -71,12 +75,11 @@ public class Producto {
      * @param precio precio del producto
      * @param descripcion descripción del producto
      * @param categoria categoría del producto
-     * @param pedidos conjunto de pedidos asociados
+     * @param pedidos pedidos asociados al producto
      */
     public Producto(Long id, String nombre, Double precio,
                     String descripcion, Categoria categoria,
                     Set<Pedido> pedidos) {
-
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -88,7 +91,7 @@ public class Producto {
     /**
      * Obtiene el identificador del producto.
      *
-     * @return identificador del producto
+     * @return id del producto
      */
     public Long getId() {
         return id;
@@ -140,7 +143,7 @@ public class Producto {
     }
 
     /**
-     * Obtiene la descripción detallada del producto.
+     * Obtiene la descripción del producto.
      *
      * @return descripción del producto
      */
@@ -149,7 +152,7 @@ public class Producto {
     }
 
     /**
-     * Establece la descripción detallada del producto.
+     * Establece la descripción del producto.
      *
      * @param descripcion descripción del producto
      */
@@ -160,7 +163,7 @@ public class Producto {
     /**
      * Obtiene la categoría del producto.
      *
-     * @return categoría del producto
+     * @return categoría asociada
      */
     public Categoria getCategoria() {
         return categoria;

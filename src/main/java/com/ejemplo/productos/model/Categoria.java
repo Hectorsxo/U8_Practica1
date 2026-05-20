@@ -1,7 +1,6 @@
 package com.ejemplo.productos.model;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 /**
@@ -14,7 +13,7 @@ import java.util.List;
  * @version 1.0
  */
 @Entity
-@Table(name = "categorias")
+@Table(name = "categoria")
 public class Categoria {
 
     /**
@@ -27,7 +26,7 @@ public class Categoria {
     /**
      * Nombre de la categoría.
      */
-    @Column(name = "nombre_categoria", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String nombre;
 
     @OneToMany(mappedBy = "categoria")
@@ -36,7 +35,6 @@ public class Categoria {
     /**
      * Constructor vacío necesario para la creación de objetos.
      */
-
     public Categoria() {}
 
     /**
@@ -104,7 +102,3 @@ public class Categoria {
         this.productos = productos;
     }
 }
-
-
-
-
